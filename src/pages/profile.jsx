@@ -11,9 +11,10 @@ const Profile = () => {
   const [username, setUsername] = useState(null)
   const [avatar, setAvatar] = useState(null)
   const [bio, setBio] = useState(null)
+  const [background, SetBack] = useState(null)
   const [posts, setPosts] = useState([]);
   const [activeTab, setActiveTab] = useState('Posts');
-  const [showComments, SetCom] = useState(false)
+  const [showComments, SetCom] = useState(null)
   const [posts_id, SetID] = useState(null)
   const [comments, SetComments] = useState([])
   const [newComment, SetNewComment] = useState("")
@@ -43,7 +44,9 @@ const Profile = () => {
         setAvatar(request.data.avatar_url)
         setBio(request.data.bio)
         setPosts(posts_request.data)
+        SetBack(request.data.background)
         SetID(request.data.id)
+        console.table(request.data)
 
       }
       catch (err) {
@@ -55,9 +58,10 @@ const Profile = () => {
     getProfile()
   }, [token]);
 
-  function Handle() {
-    console.log("jflkdf")
-    SetCom(!showComments)
+  const Handle = (id) => {
+    console.log(showComments)
+    SetCom(showComments === id ? null : id);
+
   }
 
   const formatDate = (dateString) => {
@@ -76,7 +80,7 @@ const Profile = () => {
     try {
       await apiClient.post("posts/comments/make",
         {
-          publication_id: 8,
+          publication_id: showComments,
           content: newComment
         },
         {
@@ -87,7 +91,22 @@ const Profile = () => {
         }
       )
     }
-    catch (err){
+    catch (err) {
+      console.err(err)
+    }
+  }
+
+
+  async function SearchUser (username) {
+    try{
+      await apiClient.post(`/profiles/${username}`,{
+        headers:{
+          Authorization: `Bearer ${token}`,
+          withCredentials:true
+        }
+      })
+    }
+    catch(err){
       console.err(err)
     }
   }
@@ -97,9 +116,9 @@ const Profile = () => {
       {/* Header con imagen de fondo */}
       <div className="relative">
         <div
-          className="h-48 bg-cover bg-center"
+          className="h-96 bg-cover bg-center"
           style={{
-            backgroundImage: 'url("http://localhost:8000/img/background.png")'
+            backgroundImage: `url(${background})`
           }}
         >
           {/* Navigation Bar */}
@@ -131,13 +150,13 @@ const Profile = () => {
                   <Search size={20} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
                   <input
                     type="text"
-                    placeholder="Search Post"
+                    placeholder="Search User"
                     className="bg-gray-100 pl-10 pr-4 py-2 rounded-full border-none outline-none focus:ring-2 focus:ring-gray-700"
                   />
                 </div>
                 <div className="w-8 h-8 bg-gray-300 rounded-full">
                   <img
-                    alt='avatar'
+                    alt="avatar"
                     src={avatar}
                   />
                 </div>
@@ -291,7 +310,7 @@ const Profile = () => {
 
                     <div className="flex items-center space-x-8 mt-4 text-gray-500">
                       <button className="flex items-center space-x-2 hover:text-gray-700 transition-colors group"
-                        onClick={Handle}
+                        onClick={() => Handle(posts.id)}
                       >
 
                         <div className="p-2 rounded-full group-hover:bg-blue-50">
@@ -320,9 +339,11 @@ const Profile = () => {
                       </button>
                     </div>
 
-                    {showComments &&
+                    {showComments === posts.id &&
                       posts.comments_details?.map((comment) => (
-                        <div key={comment.id} className="bg-gray-50 rounded-xl p-4 hover:bg-gray-100 transition-all duration-200 group">
+                        <div key={comment.id}
+                          className="bg-gray-50 rounded-xl p-4 hover:bg-gray-100 transition-all duration-200 group mt-3"
+                        >
                           <div className="flex gap-3">
                             <div className="flex-shrink-0">
                               <div className="w-10 h-10 rounded-full overflow-hidden bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center">
@@ -343,6 +364,9 @@ const Profile = () => {
                               <div className="flex items-center gap-2 mb-1">
                                 <span className="font-medium text-gray-900 text-sm">@{comment.username}</span>
                                 <span className="text-gray-500 text-xs">{formatDate(comment.dateCreated)}</span>
+                                <div className="ml-auto">
+                                  <MoreHorizontal size={16} className="text-gray-400 cursor-pointer hover:text-gray-600" />
+                                </div>
                               </div>
                               <p className="text-gray-700 text-sm leading-relaxed">{comment.content}</p>
                             </div>
@@ -350,31 +374,32 @@ const Profile = () => {
                         </div>
                       ))
                     }
-
-                    <div className="bg-white rounded-xl shadow-sm p-4">
-                      <div className="flex gap-3">
-                        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-green-400 to-blue-500 flex items-center justify-center flex-shrink-0">
-                          <span className="text-white font-medium text-xs">Tú</span>
-                        </div>
-                        <div className="flex-1">
-                          <textarea
-                            placeholder="Escribe un comentario..."
-                            onChange={(e) => SetNewComment(e.target.value)}
-                            className="w-full p-3 border border-gray-200 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
-                            rows="2"
-                          />
-                          <div className="flex justify-between items-center mt-2">
-                            <span className="text-xs text-gray-400">Máximo 500 caracteres</span>
-                            <button className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-1.5 rounded-lg text-sm font-medium transition-colors"
-                              onClick={handleComment}
-                            >
-                              Comentar
-                            </button>
+                    {showComments === posts.id && (
+                      <div className="bg-gray-50 rounded-xl p-4 hover:bg-gray-100 transition-all duration-200 group mt-3">
+                        <div className="flex gap-3">
+                          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-green-400 to-blue-500 flex items-center justify-center flex-shrink-0">
+                            <span className="text-white font-medium text-xs">Tú</span>
+                          </div>
+                          <div className="flex-1">
+                            <textarea
+                              placeholder="Escribe un comentario..."
+                              onChange={(e) => SetNewComment(e.target.value)}
+                              className="w-full p-3 border border-gray-200 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+                              rows="2"
+                            />
+                            <div className="flex justify-between items-center mt-2">
+                              <span className="text-xs text-gray-400">Máximo 500 caracteres</span>
+                              <button className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-1.5 rounded-lg text-sm font-medium transition-colors"
+                                onClick={handleComment}
+                              >
+                                Comentar
+                              </button>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-
+                    )
+                    }
                   </div>
                 </div>
               </div>
@@ -399,7 +424,7 @@ const Profile = () => {
           </div>
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 
