@@ -18,6 +18,7 @@ const Profile = () => {
   const [posts_id, SetID] = useState(null)
   const [comments, SetComments] = useState([])
   const [newComment, SetNewComment] = useState("")
+  const [Query, SetQuery] = useState("")
 
   useEffect(() => {
     async function getProfile() {
@@ -47,6 +48,7 @@ const Profile = () => {
         SetBack(request.data.background)
         SetID(request.data.id)
         console.table(request.data)
+        console.table(posts_request.data)
 
       }
       catch (err) {
@@ -97,17 +99,22 @@ const Profile = () => {
   }
 
 
-  async function SearchUser (username) {
-    try{
-      await apiClient.post(`/profiles/${username}`,{
-        headers:{
+  async function SearchUser() {
+    try {
+      const user = await apiClient.get(`/profiles/${Query}`, {
+        headers: {
           Authorization: `Bearer ${token}`,
-          withCredentials:true
+          withCredentials: true
         }
       })
+
+      navigate(`/profile/${username}`);
+      SetQuery("")
+      console.table(user.data)
+
     }
-    catch(err){
-      console.err(err)
+    catch (err) {
+      console.log(err)
     }
   }
 
@@ -151,14 +158,28 @@ const Profile = () => {
                   <input
                     type="text"
                     placeholder="Search User"
+                    value={Query}
+                    onChange={(e) => SetQuery(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        SearchUser();
+                      }
+                    }}
                     className="bg-gray-100 pl-10 pr-4 py-2 rounded-full border-none outline-none focus:ring-2 focus:ring-gray-700"
                   />
                 </div>
-                <div className="w-8 h-8 bg-gray-300 rounded-full">
-                  <img
-                    alt="avatar"
-                    src={avatar}
-                  />
+                <div className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center overflow-hidden">
+                  {avatar ? (
+                    <img
+                      src={avatar}
+                      alt={`Avatar de ${username}`}
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <span className="text-white font-medium text-sm">
+                      {username?.charAt(0).toUpperCase()}
+                    </span>
+                  )}
                 </div>
                 <button className="bg-gray-700 text-white px-4 py-2 rounded-full font-semibold hover:bg-blue-600">
                   posts
@@ -175,11 +196,18 @@ const Profile = () => {
               <div className="flex items-start justify-between">
                 <div className="flex items-start space-x-4">
                   <div className="relative">
-                    <div className="w-24 h-24 bg-gray-300 rounded-full border-4 border-white flex items-center justify-center">
-                      <img
-                        alt='avatar'
-                        src={avatar}
-                      />
+                    <div className="w-24 h-24 bg-gray-300 rounded-full border-4 border-white flex items-center justify-center overflow-hidden">
+                      {avatar ? (
+                        <img
+                          src={avatar}
+                          alt={`Avatar de ${username}`}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        <span className="text-white font-medium text-sm">
+                          {username?.charAt(0).toUpperCase()}
+                        </span>
+                      )}
                     </div>
                   </div>
                   <div className="flex-1">
@@ -269,7 +297,7 @@ const Profile = () => {
         <div className="flex space-x-6">
           {/* posts Column */}
           <div className="flex-1">
-            {posts.map((posts) => (
+            {posts && posts.map((posts) => (
               <div key={posts.id} className="bg-white rounded-lg shadow mb-4 p-6 hover:shadow-md transition-shadow">
                 <div className="flex space-x-3">
                   <div className="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center flex-shrink-0">
@@ -286,7 +314,7 @@ const Profile = () => {
                       )}
                       <span className="text-gray-600">@{username}</span>
                       <span className="text-gray-400">·</span>
-                      <span className="text-gray-400">{posts.datecreated}</span>
+                      <span className="text-gray-400">{formatDate(posts.datecreated)}</span>
                       <div className="ml-auto">
                         <MoreHorizontal size={16} className="text-gray-400 cursor-pointer hover:text-gray-600" />
                       </div>

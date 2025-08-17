@@ -11,12 +11,14 @@ import PrivateRoute from './components/PrivateRoute'
 import ModifierInfo from './pages/ModifierInfo'
 import ChatTest from './pages/ChatTest'
 import Chats from './pages/Chats'
+import Playground from '../test/Playgrounds'
 function App() {
 
   return (
     <Routes>
       <Route path='/' element={<Login />} />
       <Route path='/Register' element={<Register />} />
+      <Route path='/test' element={<Playground/>} />
       <Route element={<PrivateRoute />}>
         <Route path='/profile/:username' element={<Profile />} />
         <Route path='/Modifier' element={<ModifierInfo/>}/>
