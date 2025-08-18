@@ -81,7 +81,7 @@ export default function NavigateBar({user}) {
               </span>
             )}
           </div>
-          <button className="bg-gray-700 text-white px-4 py-2 rounded-full font-semibold rounded"
+          <button className="bg-gray-700 text-white px-4 py-2 font-semibold rounded"
             onClick={logout}
           >
             Logout
