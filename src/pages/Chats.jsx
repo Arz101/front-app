@@ -1,7 +1,5 @@
 import { Container, Card, Button, Form } from "react-bootstrap";
-import axios from "axios";
 import { useEffect, useState } from "react";
-import apiClient from "../services/api";
 
 
 export default function Chats() {
@@ -10,17 +8,7 @@ export default function Chats() {
     
     useEffect(() => {
         async function getChats ()  {
-            try {
-                const request = await apiClient.get("/chat/all", {
-                    headers: {
-                        Authorization: `Bearer ${localStorage.getItem("token")}`
-                    },
-                    withCredentials: true
-                });
-                setChats(request.data.usernames);  // Asignar los chats al estado
-            } catch (error) {
-                console.error(error);
-            }
+            console.log("Comming...")
         }
         getChats();
     }, [token]);
@@ -32,7 +20,7 @@ export default function Chats() {
                 <Card.Body>
                     <Card.Title className="text-center">Chats</Card.Title>
                     <ul>
-                        {chats.map((chat, idx) => (
+                        {chats?.map((chat, idx) => (
                             <li key={idx}>
                                 <a href={"/chat"}>{chat}</a>
                             </li>
