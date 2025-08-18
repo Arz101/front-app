@@ -69,7 +69,8 @@ export default function NavigateBar({user}) {
             />
           </div>
           <div className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center overflow-hidden">
-            {user?.avatar_url ? (
+            <button onClick={() => navigator(`/profile/me`)}>
+              {user?.avatar_url ? (
               <img
                 src={user.avatar_url}
                 alt={`Avatar de ${user?.username}`}
@@ -80,6 +81,7 @@ export default function NavigateBar({user}) {
                 {user?.username?.charAt(0).toUpperCase()}
               </span>
             )}
+            </button>
           </div>
           <button className="bg-gray-700 text-white px-4 py-2 font-semibold rounded"
             onClick={logout}
