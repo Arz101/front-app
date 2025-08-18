@@ -1,0 +1,19 @@
+{
+    "state": {
+        "user": {
+            "user_id": 9,
+            "name": "Adrian",
+            "lastname": "Rodriguez",
+            "gender": "M",
+            "phone": "12345678",
+            "birthday": "2003-12-30",
+            "avatar_url": "https://ihpscbjeznkqqlzcuztt.supabase.co/storage/v1/object/sign/App-Bucket/avt/52a51e40-e338-4ae2-8fc9-093bc8b2954a.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV81OGYwNWQzYy1hMTRmLTRhN2QtYmJlOS02MzczOGFlNGEwNGMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBcHAtQnVja2V0L2F2dC81MmE1MWU0MC1lMzM4LTRhZTItOGZjOS0wOTNiYzhiMjk1NGEuanBnIiwiaWF0IjoxNzU1NDc2NDY5LCJleHAiOjE3NTU0NzY1Mjl9.0a8nQ2zj1fPJ0bavkk2qWOSISpwrGqRBXpGUU-wI_Vw",
+            "bio": "",
+            "background": "https://ihpscbjeznkqqlzcuztt.supabase.co/storage/v1/object/sign/App-Bucket/backgrounds/428e2f09-68be-4c65-843b-81eb1f818fbc.webp?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV81OGYwNWQzYy1hMTRmLTRhN2QtYmJlOS02MzczOGFlNGEwNGMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBcHAtQnVja2V0L2JhY2tncm91bmRzLzQyOGUyZjA5LTY4YmUtNGM2NS04NDNiLTgxZWIxZjgxOGZiYy53ZWJwIiwiaWF0IjoxNzU1NDc2NDY5LCJleHAiOjE3NTU0NzY1Mjl9.Bpo3xIn55PjWvNwr0oyq8BNElkvpU6L7O2LsPlQaah0",
+            "username": "arz202"
+        },
+        "loading": false,
+        "error": null
+    },
+    "version": 0
+}

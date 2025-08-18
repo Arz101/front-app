@@ -1,13 +1,13 @@
 import { useState } from "react";
-import { Heart, MessageCircle, Repeat2, Share, Search, Home, Zap, Bell, Mail, Bookmark, User, MoreHorizontal, Calendar, MapPin, Link, Camera, AppWindow } from 'lucide-react';
+import { Search, Home, Zap, Bell, Mail } from 'lucide-react';
 import { useNavigate } from "react-router-dom";
 
-export default function NavigateBar({ user }) {
+export default function NavigateBar({user}) {
   const [Query, SetQuery] = useState("")
   const navigator = useNavigate()
 
   async function SearchUser() {
-    SetQuery("")
+    navigator(`/profile/${Query}`)
   }
 
   async function logout(){
@@ -21,9 +21,10 @@ export default function NavigateBar({ user }) {
         <div className="flex items-center space-x-8">
           <div className="text-gray-700 font-bold text-xl">⭐</div>
           <div className="flex space-x-6">
-            <a href="#" className="flex items-center space-x-2 text-gray-700">
+            <a href="/profile/me" className="flex items-center space-x-2 text-gray-700">
               <Home size={20} />
               <span>Home</span>
+              
             </a>
             <a href="#" className="flex items-center space-x-2 text-gray-600">
               <Zap size={20} />
@@ -56,15 +57,15 @@ export default function NavigateBar({ user }) {
             />
           </div>
           <div className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center overflow-hidden">
-            {user.avatar ? (
+            {user?.avatar_url ? (
               <img
-                src={user.avatar}
-                alt={`Avatar de ${user.username}`}
+                src={user.avatar_url}
+                alt={`Avatar de ${user?.username}`}
                 className="w-full h-full object-cover"
               />
             ) : (
               <span className="text-white font-medium text-sm">
-                {user.username?.charAt(0).toUpperCase()}
+                {user?.username?.charAt(0).toUpperCase()}
               </span>
             )}
           </div>

@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Heart, MessageCircle, Repeat2, Share, Search, Home, Zap, Bell, Mail, Bookmark, User, MoreHorizontal, Calendar, MapPin, Link, Camera, AppWindow } from 'lucide-react';
+import { Heart, MessageCircle, Repeat2, Share, MoreHorizontal } from 'lucide-react';
 
 export default function Post({ posts, user }) {
   const [showComments, SetCom] = useState(null)
@@ -35,15 +35,15 @@ export default function Post({ posts, user }) {
             <div key={posts.id} className="bg-white rounded-lg shadow mb-4 p-6 hover:shadow-md transition-shadow">
               <div className="flex space-x-3">
                 <div className="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center flex-shrink-0">
-                  {user.avatar ? (
+                  {user?.avatar_url ? (
                     <img
-                      src={user.avatar}
-                      alt={`Avatar de ${user.username}`}
+                      src={user.avatar_url}
+                      alt={`Avatar de ${user?.username}`}
                       className="w-full h-full object-cover"
                     />
                   ) : (
                     <span className="text-white font-medium text-sm">
-                      {user.username?.charAt(0).toUpperCase()}
+                      {user?.username?.charAt(0).toUpperCase()}
                     </span>
                   )}
                 </div>
@@ -53,7 +53,7 @@ export default function Post({ posts, user }) {
                     {posts.verified && (
                       <div className="w-4 h-4 bg-gray-700 text-white rounded-full flex items-center justify-center text-xs">✓</div>
                     )}
-                    <span className="text-gray-600">@{user.username}</span>
+                    <span className="text-gray-600">@{user?.username}</span>
                     <span className="text-gray-400">·</span>
                     <span className="text-gray-400">{formatDate(posts.datecreated)}</span>
                     <div className="ml-auto">

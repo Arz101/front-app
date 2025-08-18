@@ -1,9 +1,8 @@
-import { Heart, MessageCircle, Repeat2, Share, Search, Home, Zap, Bell, Mail, Bookmark, User, MoreHorizontal, Calendar, MapPin, Link, Camera } from 'lucide-react';
+import { Calendar, MapPin, Link, Camera } from 'lucide-react';
 import { useState } from 'react';
 
 export default function Header({ user }) {
   const [activeTab, setActiveTab] = useState('Posts');
-
 
   return (
     <div className="">
@@ -11,7 +10,7 @@ export default function Header({ user }) {
       <div
         className="h-96 bg-cover bg-center"
         style={{
-          backgroundImage: `url(${user.background})`
+          backgroundImage: `url(${user?.background})`
         }}
       ></div>
       <div className="max-w-4xl mx-auto px-4 relative -mt-16">
@@ -21,25 +20,25 @@ export default function Header({ user }) {
               <div className="flex items-start space-x-4">
                 <div className="relative">
                   <div className="w-24 h-24 bg-gray-300 rounded-full border-4 border-white flex items-center justify-center overflow-hidden">
-                    {user.avatar ? (
+                    { user?.avatar_url ? (
                       <img
-                        src={user.avatar}
-                        alt={`Avatar de ${user.username}`}
+                        src={user.avatar_url}
+                        alt={`Avatar de ${user?.username}`}
                         className="w-full h-full object-cover"
                       />
                     ) : (
                       <span className="text-white font-medium text-sm">
-                        {user.username?.charAt(0).toUpperCase()}
+                        {user?.username?.charAt(0).toUpperCase()}
                       </span>
                     )}
                   </div>
                 </div>
                 <div className="flex-1">
                   <div className="flex items-center space-x-2">
-                    <h1 className="text-2xl font-bold">{user.name}</h1>
+                    <h1 className="text-2xl font-bold">{user?.name + " " + user?.lastname} </h1>
                   </div>
-                  <p className="text-gray-600">@{user.username}</p>
-                  <p className="text-gray-800 mt-2">{user.bio}</p>
+                  <p className="text-gray-600">@{user?.username}</p>
+                  <p className="text-gray-800 mt-2">{user?.bio}</p>
 
                   <div className="flex items-center space-x-4 mt-3 text-sm text-gray-600">
                     <div className="flex items-center space-x-1">
@@ -65,10 +64,10 @@ export default function Header({ user }) {
             </div>
             <div className="flex space-x-6 mt-4">
               <button className="bg-gray-700 text-white px-6 py-2 rounded-full w-full">
-                posts to {user.name}
+                posts to {user?.name}
               </button>
               <button className="border border-gray-700 text-gray-700 px-6 py-2 rounded-full w-full hover:bg-blue-50">
-                Message to {user.name}
+                Message to {user?.name}
               </button>
             </div>
             <div className="flex justify-around border-b mt-6">

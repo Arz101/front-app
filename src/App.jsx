@@ -12,6 +12,8 @@ import ModifierInfo from './pages/ModifierInfo'
 import ChatTest from './pages/ChatTest'
 import Chats from './pages/Chats'
 import Playground from '../test/Playgrounds'
+import ProfileViewer from './pages/ProfileViewer'
+
 function App() {
 
   return (
@@ -20,7 +22,8 @@ function App() {
       <Route path='/Register' element={<Register />} />
       <Route path='/test' element={<Playground/>} />
       <Route element={<PrivateRoute />}>
-        <Route path='/profile/:username' element={<Profile />} />
+        <Route path='/profile/:username' element={<ProfileViewer/>}/>
+        <Route path='/profile/me' element={<Profile />} />
         <Route path='/Modifier' element={<ModifierInfo/>}/>
         <Route path='/chats' element={<Chats/>}/>
         <Route path='/chat' element={<ChatTest/>} />
