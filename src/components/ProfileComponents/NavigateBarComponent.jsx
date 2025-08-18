@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Search, Home, Zap, Bell, Mail } from 'lucide-react';
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 export default function NavigateBar({user}) {
   const [Query, SetQuery] = useState("")
@@ -15,29 +15,41 @@ export default function NavigateBar({user}) {
     navigator("/")
   }
 
+  const headerOptions = [
+    {
+      label: "Home",
+      icon: <Home size={20} />,
+      link: "/profile/me"
+    },
+    {
+      label: "Moments",
+      icon: <Zap size={20} />,
+      link: "/moments"
+    },
+    {
+      label: "Notifications",
+      icon: <Bell size={20} />,
+      link: "/notifications"
+    },
+    {
+      label: "Messages",
+      icon: <Mail size={20} />,
+      link: "/messages"
+    }
+  ]
+
   return (
-    <nav className="bg-white bg-opacity-90 backdrop-blur-sm px-4 py-2">
+    <nav className="not-prose bg-white bg-opacity-90 backdrop-blur-sm px-4 py-2">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <div className="flex items-center space-x-8">
-          <div className="text-gray-700 font-bold text-xl">⭐</div>
+          <div className="text-2xl">⭐</div>
           <div className="flex space-x-6">
-            <a href="/profile/me" className="flex items-center space-x-2 text-gray-700">
-              <Home size={20} />
-              <span>Home</span>
-              
-            </a>
-            <a href="#" className="flex items-center space-x-2 text-gray-600">
-              <Zap size={20} />
-              <span>Moments</span>
-            </a>
-            <a href="#" className="flex items-center space-x-2 text-gray-600">
-              <Bell size={20} />
-              <span>Notifications</span>
-            </a>
-            <a href="#" className="flex items-center space-x-2 text-gray-600">
-              <Mail size={20} />
-              <span>Messages</span>
-            </a>
+            {headerOptions.map((option) => (
+              <NavLink key={option.label} to={option.link} className="flex items-center gap-2 !no-underline !text-gray-600 visited:text-gray-600 hover:text-gray-800">
+                {option.icon}
+                <span>{option.label}</span>
+              </NavLink>
+            ))}
           </div>
         </div>
         <div className="flex items-center space-x-4">
@@ -69,7 +81,7 @@ export default function NavigateBar({user}) {
               </span>
             )}
           </div>
-          <button className="bg-gray-700 text-white px-4 py-2 rounded-full font-semibold hover:bg-blue-600"
+          <button className="bg-gray-700 text-white px-4 py-2 rounded-full font-semibold rounded"
             onClick={logout}
           >
             Logout
