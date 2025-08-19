@@ -8,7 +8,7 @@ export default function Playground() {
     lastname: "Lastname",
     username: "username",
     avatar_url: "https://ihpscbjeznkqqlzcuztt.supabase.co/storage/v1/object/sign/App-Bucket/avt/83872f81-0e84-4c3f-afbc-a338fb7818d6.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV81OGYwNWQzYy1hMTRmLTRhN2QtYmJlOS02MzczOGFlNGEwNGMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBcHAtQnVja2V0L2F2dC84Mzg3MmY4MS0wZTg0LTRjM2YtYWZiYy1hMzM4ZmI3ODE4ZDYuanBnIiwiaWF0IjoxNzU1NTM1NDY5LCJleHAiOjE3ODcwNzE0Njl9.CSV90G5mecT5n5xHCUMS__QgokfpX31oXXnyDGpU0_s",
-    bio: "No bio yett ☕",
+    bio: "No bio yet ☕",
     background: "https://ihpscbjeznkqqlzcuztt.supabase.co/storage/v1/object/sign/App-Bucket/backgrounds/428e2f09-68be-4c65-843b-81eb1f818fbc.webp?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV81OGYwNWQzYy1hMTRmLTRhN2QtYmJlOS02MzczOGFlNGEwNGMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBcHAtQnVja2V0L2JhY2tncm91bmRzLzQyOGUyZjA5LTY4YmUtNGM2NS04NDNiLTgxZWIxZjgxOGZiYy53ZWJwIiwiaWF0IjoxNzU1NTM1NDE5LCJleHAiOjE3ODcwNzE0MTl9.mNuQ29poX3gS3oc8EgocXxwI1HJsW45eLVYpb_BNxrU"
   }
   

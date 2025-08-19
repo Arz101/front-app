@@ -1,17 +1,20 @@
 import { useState } from "react";
 import { Search, Home, Zap, Bell, Mail } from 'lucide-react';
 import { NavLink, useNavigate } from "react-router-dom";
+import useUserStore from "../../../store/UserInfo";
 
 export default function NavigateBar({user}) {
   const [Query, SetQuery] = useState("")
   const navigator = useNavigate()
+  const {logout} = useUserStore()
 
   async function SearchUser() {
     navigator(`/profile/${Query}`)
   }
 
-  async function logout(){
+  async function logout_(){
     localStorage.removeItem('token')
+    logout()
     navigator("/")
   }
 
@@ -84,7 +87,7 @@ export default function NavigateBar({user}) {
             </button>
           </div>
           <button className="bg-gray-700 text-white px-4 py-2 font-semibold rounded"
-            onClick={logout}
+            onClick={logout_}
           >
             Logout
           </button>

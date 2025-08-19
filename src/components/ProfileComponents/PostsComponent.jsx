@@ -171,7 +171,7 @@ export default function Post({ posts, user }) {
                           </div>
                         </div>
                       ))}
-                      
+
                     {showComments === posts.id && (
                       <div className="bg-gray-50 rounded-xl p-4 hover:bg-gray-100 transition-all duration-200 group mt-3">
                         <div className="flex gap-3">

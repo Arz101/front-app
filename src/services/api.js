@@ -1,21 +1,9 @@
 import { toast } from '@pheralb/toast';
-import axios from 'axios'
-
-
-const apiClient = axios.create({
-  baseURL: 'https://api-9hjd.onrender.com',
-  timeout: 10000,
-});
+import apiClient  from './interceptors';
 
 export async function getUserInfo(param) {
-  const token = localStorage.getItem('token')
   try {
-    const request = await apiClient.get(`/profiles/${param}`, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      },
-      withCredentials: true
-    });
+    const request = await apiClient.get(`/profiles/${param}`);
 
     return request.data
   }
@@ -25,14 +13,8 @@ export async function getUserInfo(param) {
 }
 
 export async function getPosts() {
-  const token = localStorage.getItem('token')
   try {
-    const posts_request = await apiClient.get("/posts/me", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        withCredentials: true
-      }
-    })
+    const posts_request = await apiClient.get("/posts/me")
     console.log(posts_request.data)
 
     return posts_request.data
@@ -41,8 +23,7 @@ export async function getPosts() {
     let message = "Ha ocurrido un error inesperado. Inténtalo de nuevo.";
     if (err.message === "network_error") {
       message = "No se pudo conectar con el servidor. Verifica tu conexión a internet.";
-    } 
-
+    }
     toast.error({ text: "Error", description: message });
   }
 }
@@ -73,6 +54,15 @@ export async function login(formData) {
     toast.error({ text: "Error", description: message });
 
     return { success: false, error: message };
+  }
+}
+
+export async function createPosts(PostsForm){
+  try{
+    await apiClient.post("/posts/make")
+  }
+  catch(error){
+    console.error("")
   }
 }
 
