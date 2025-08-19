@@ -2,22 +2,26 @@ import React, { useState, useEffect } from 'react';
 import Header from '../components/ProfileComponents/HeaderComponent';
 import NavigateBar from '../components/ProfileComponents/NavigateBarComponent';
 import Post from '../components/ProfileComponents/PostsComponent';
-import { getUserInfo, getPosts } from "../services/api";
 import useUserStore from '../../store/UserInfo';
 
 const Profile = () => {
-  const { user, getInfo, loading, error } = useUserStore()
-  const [posts, setPosts] = useState([]);
+  const { user, getInfo, loading, error, getUserPosts, posts } = useUserStore()
 
   useEffect(() => {
     async function getProfile() {
       try {
         if(!user){
           getInfo()
+          console.log("A")
         }
-        console.log(user)
-        const posts_request = await getPosts();
-        setPosts(posts_request)
+
+        if(!posts){
+          getUserPosts()
+          console.log("E")
+        }
+
+        console.table(user)
+        console.table(posts)
       }
       catch (err) {
         console.error(err)
@@ -25,7 +29,7 @@ const Profile = () => {
     }
 
     getProfile()
-  }, [user, getInfo]);
+  }, [user, getInfo, posts, getUserPosts]);
 
   return (
     <div className="min-h-screen bg-gray-100">

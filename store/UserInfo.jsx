@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import { getUserInfo } from '../src/services/api'
+import { getPosts, getUserInfo } from '../src/services/api'
 
 const useUserStore = create(
   persist(
@@ -8,6 +8,7 @@ const useUserStore = create(
       user: null,
       loading: false,
       error: null,
+      posts: null,
 
       getInfo: async () => {
         set({ loading: true, error: null })
@@ -21,6 +22,23 @@ const useUserStore = create(
           set({ 
             error: err.message,
             loading: false 
+          })
+        }
+      },
+
+      getUserPosts: async () => {
+        set({loading: true, error: null})
+        try{
+          const posts_request = await getPosts();
+          set({
+            posts: posts_request,
+            loading: false
+          })
+        }
+        catch(err){
+          set({
+            error: err.message,
+            loading: false,
           })
         }
       },
