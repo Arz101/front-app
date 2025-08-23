@@ -1,6 +1,7 @@
 import Header from "../src/components/ProfileComponents/HeaderComponent";
 import NavigateBar from "../src/components/ProfileComponents/NavigateBarComponent";
 import Post from "../src/components/ProfileComponents/PostsComponent";
+import Create from "../src/components/ProfileComponents/PostsCreate";
 
 export default function Playground() {
   const testUser = {
@@ -27,11 +28,12 @@ export default function Playground() {
         <NavigateBar user = {testUser}></NavigateBar>
         <Header user = {testUser}></Header>
       </div>
-
-      <Post
-        posts={testPost}
-        user={testUser}
-      />
+      <div className="max-w-4xl mx-auto px-4 mt-6">
+        <Post
+          posts={testPost}
+          user={testUser}
+        />
+      </div>
     </div>
   );
 }

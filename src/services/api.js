@@ -60,6 +60,8 @@ export async function login(formData) {
 export async function createPosts(PostsForm){
   try{
     await apiClient.post("/posts/make")
+
+    
   }
   catch(error){
     console.error("")

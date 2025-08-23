@@ -6,6 +6,7 @@ import {
   Share,
   MoreHorizontal,
 } from "lucide-react";
+import Create from "./PostsCreate";
 
 export default function Post({ posts, user }) {
   const [showComments, SetCom] = useState(null);
@@ -33,6 +34,7 @@ export default function Post({ posts, user }) {
 
   return (
     <div className="max-w-4xl mx-auto px-4 mt-6">
+      <Create/>
       <div className="flex space-x-6">
         <div className="flex-1">
           {posts &&

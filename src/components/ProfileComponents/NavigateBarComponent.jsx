@@ -3,16 +3,16 @@ import { Search, Home, Zap, Bell, Mail } from 'lucide-react';
 import { NavLink, useNavigate } from "react-router-dom";
 import useUserStore from "../../../store/UserInfo";
 
-export default function NavigateBar({user}) {
+export default function NavigateBar({ user }) {
   const [Query, SetQuery] = useState("")
   const navigator = useNavigate()
-  const {logout} = useUserStore()
+  const { logout } = useUserStore()
 
   async function SearchUser() {
     navigator(`/profile/${Query}`)
   }
 
-  async function logout_(){
+  async function logout_() {
     localStorage.removeItem('token')
     logout()
     navigator("/")
@@ -74,16 +74,16 @@ export default function NavigateBar({user}) {
           <div className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center overflow-hidden">
             <button onClick={() => navigator(`/profile/me`)}>
               {user?.avatar_url ? (
-              <img
-                src={user.avatar_url}
-                alt={`Avatar de ${user?.username}`}
-                className="w-full h-full object-cover"
-              />
-            ) : (
-              <span className="text-white font-medium text-sm">
-                {user?.username?.charAt(0).toUpperCase()}
-              </span>
-            )}
+                <img
+                  src={user.avatar_url}
+                  alt={`Avatar de ${user?.username}`}
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <span className="text-white font-medium text-sm">
+                  {user?.username?.charAt(0).toUpperCase()}
+                </span>
+              )}
             </button>
           </div>
           <button className="bg-gray-700 text-white px-4 py-2 font-semibold rounded"
